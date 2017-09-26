@@ -1,0 +1,53 @@
+syntax = "proto3";
+package proto;
+
+service GoWayCollectAgentService {
+    rpc HttpLogger (HttpLoggerRequest) returns (HttpLoggerResponse) {}
+}
+
+
+message HttpLoggerRequest {
+    string base_path = 1;
+    float elapsed_time = 2;
+    string host = 3;
+    string ip = 4;
+    string method = 5;
+    bytes request_body = 6;
+    repeated string request_header = 7;
+    string version = 8;
+    string uri = 9;
+    string protocol = 10;
+    DateTime time = 11;
+    string key = 12;
+    bytes response_body = 13;
+    string request_id = 14;
+    map<string, string> properties = 15;
+    repeated string tags = 16;
+    string status = 17;
+    string service_path = 18;
+    map<string, string> metadata = 19;
+}
+
+message StringArr {
+    repeated string value = 1;
+}
+
+message DateTime {
+    string year = 1;
+    string month = 2;
+    string day = 3;
+    string hour = 4;
+    string min = 5;
+    string sec = 6;
+}
+
+message MapInterface {
+    string type_url = 1;
+    bytes value = 2;
+}
+
+
+message HttpLoggerResponse {
+    string id = 1;
+    bool success = 2;
+}

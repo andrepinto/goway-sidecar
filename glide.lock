@@ -1,0 +1,77 @@
+hash: b90477358409ab29800d31e2d969ba01221ee7e7f8a0e1845cd473785730de7a
+updated: 2017-09-27T00:20:56.420994239+01:00
+imports:
+- name: github.com/golang/protobuf
+  version: 2bba0603135d7d7f5cb73b2125beeda19c09f4ef
+  subpackages:
+  - proto
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/timestamp
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/sirupsen/logrus
+  version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
+- name: github.com/twinj/uuid
+  version: 89173bcdda19db0eb88aef1e1cb1cb2505561d31
+- name: golang.org/x/crypto
+  version: d172538b2cfce0c13cee31e647d0367aa8cd2486
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/net
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
+  subpackages:
+  - context
+  - context/ctxhttp
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: golang.org/x/sys
+  version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: b19bf474d317b857955b12035d2c5acb57ce8b01
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: 1e559d0a00eef8a9a43151db4665280bd8dd5886
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: f92cdcd7dcdc69e81b2d7b338479a19a8723cfa3
+  subpackages:
+  - codes
+  - connectivity
+  - credentials
+  - grpclb/grpc_lb_v1/messages
+  - grpclog
+  - internal
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - stats
+  - status
+  - tap
+  - transport
+- name: gopkg.in/olivere/elastic.v3
+  version: 5a75b7d18bca7420e68338600e8c9f611435f911
+  subpackages:
+  - backoff
+  - uritemplates
+- name: gopkg.in/olivere/elastic.v5
+  version: 2a08d39723b7f4df92b96e2dff891a60952714d6
+  subpackages:
+  - config
+  - uritemplates
+- name: gopkg.in/urfave/cli.v1
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
+testImports: []
