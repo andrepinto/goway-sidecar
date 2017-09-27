@@ -4,7 +4,7 @@ import (
 	"github.com/andrepinto/goway-sidecar/helpers"
 	"github.com/twinj/uuid"
 	"github.com/andrepinto/goway-sidecar/outputs"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -29,11 +29,9 @@ func(repo *ElasticSearchRepo) Send(data []*outputs.HttpLoggerClient) error{
 		repo.Client.AddToBulk(repo.Index, bulk, HTTP_LOGGER_INDEX_TYPE, v, uuid.NewV4().String())
 	}
 
-	fmt.Println("*******************")
+	errors := repo.Client.SendBulk(bulk)
 
-	fmt.Println(data[0].Timestamp)
-
-	repo.Client.SendBulk(bulk)
+	log.Debug("elastic sending errors:",errors)
 
 	return nil
 }

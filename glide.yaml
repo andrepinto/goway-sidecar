@@ -16,3 +16,7 @@ import:
 - package: gopkg.in/olivere/elastic.v3
 - package: gopkg.in/olivere/elastic.v5
 - package: github.com/twinj/uuid
+- package: google.golang.org/api/support/bundler
+- package: google.golang.org/api
+  subpackages:
+  - support/bundler

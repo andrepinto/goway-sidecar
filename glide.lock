@@ -1,5 +1,5 @@
-hash: b90477358409ab29800d31e2d969ba01221ee7e7f8a0e1845cd473785730de7a
-updated: 2017-09-27T00:20:56.420994239+01:00
+hash: c3bc6660d5bbe1252ac2dd31fe800e7774d39264d08275bcbab7d5b6f95b56fc
+updated: 2017-09-27T01:18:58.216392249+01:00
 imports:
 - name: github.com/golang/protobuf
   version: 2bba0603135d7d7f5cb73b2125beeda19c09f4ef
@@ -9,6 +9,8 @@ imports:
   - ptypes/any
   - ptypes/duration
   - ptypes/timestamp
+- name: github.com/jehiah/go-strftime
+  version: 2efbe75097a505e2789f7e39cb9da067b5be8e3e
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/sirupsen/logrus
@@ -30,6 +32,10 @@ imports:
   - internal/timeseries
   - lex/httplex
   - trace
+- name: golang.org/x/sync
+  version: f52d1811a62927559de87708c8913c1650ce4f26
+  subpackages:
+  - semaphore
 - name: golang.org/x/sys
   version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
   subpackages:
@@ -41,6 +47,10 @@ imports:
   - transform
   - unicode/bidi
   - unicode/norm
+- name: google.golang.org/api
+  version: e962708912ea1b4d4321358ccdae614a77eb883a
+  subpackages:
+  - support/bundler
 - name: google.golang.org/genproto
   version: 1e559d0a00eef8a9a43151db4665280bd8dd5886
   subpackages:

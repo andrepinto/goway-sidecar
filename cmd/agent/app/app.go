@@ -7,28 +7,35 @@ import (
 )
 
 type NavyhookClientApp struct {
-
 }
 
-func NewNavyhookClientApp() *NavyhookClientApp{
+func NewNavyhookClientApp() *NavyhookClientApp {
 	return &NavyhookClientApp{}
 }
 
+func (cli *NavyhookClientApp) Run(options *NavyhookClientCmdOptions) error {
 
-func (cli *NavyhookClientApp)Run(options *NavyhookClientCmdOptions) error{
-
-	elasticClient := helpers.CreateElasticSearchConn("http://localhost")
+	elasticClient := helpers.CreateElasticSearchConn(options.ElasticIp)
 	elasticClient.Conn()
 
-	elasticsearchOut := repository.NewElasticsearchOutput(elasticClient, "analytics")
+	sContext := map[string]string{
+		"service":     options.ServiceId,
+		"version":     options.Version,
+		"service_id":  options.ServiceId,
+		"environment": options.Env,
+	}
+
+	elasticsearchOut := repository.NewElasticsearchOutput(elasticClient, options.ElasticIndex)
 
 	collectorAgent := collector.NewCollectorRpcServer(&collector.CollectorRpcServerOptions{
-		Port:":5000",
-		Output: elasticsearchOut,
+		Port:                 options.Port,
+		Output:               elasticsearchOut,
+		BundleCountThreshold: options.BundleCountThreshold,
+		DelayThreshold:       options.DelayThreshold,
+		Context:              sContext,
 	})
 
 	err := collectorAgent.Start()
-
 
 	select {}
 

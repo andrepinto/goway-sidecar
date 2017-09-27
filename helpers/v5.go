@@ -8,7 +8,6 @@ import (
 	"reflect"
 	"gopkg.in/olivere/elastic.v5"
 	"context"
-	"fmt"
 )
 
 const (
@@ -225,8 +224,8 @@ func (es *ElasticSearch) AddToBulk(index string, bulk *elastic.BulkService, tabl
 	bulk.Add(elastic.NewBulkIndexRequest().Index(index).Type(table).Doc(model).Id(id))
 }
 
-func (es *ElasticSearch) SendBulk(bulk *elastic.BulkService) {
+func (es *ElasticSearch) SendBulk(bulk *elastic.BulkService)bool {
 	ctx := context.Background()
-	resp, err := bulk.Do(ctx)
-	fmt.Println(resp.Errors, err)
+	resp, _ := bulk.Do(ctx)
+	return resp.Errors
 }
