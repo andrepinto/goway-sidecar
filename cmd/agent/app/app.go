@@ -7,16 +7,18 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type NavyhookClientApp struct {
+type SideCarApp struct {
 }
 
-func NewNavyhookClientApp() *NavyhookClientApp {
-	return &NavyhookClientApp{}
+func NewSideCarApp() *SideCarApp {
+	return &SideCarApp{}
 }
 
-func (cli *NavyhookClientApp) Run(options *NavyhookClientCmdOptions) error {
+func (cli *SideCarApp) Run(options *SideCarClientCmdOptions) error {
 
 	log.SetLevel(log.DebugLevel)
+
+	log.Debug(options)
 
 	elasticClient := helpers.CreateElasticSearchConn(options.ElasticIp)
 	err := elasticClient.Conn()

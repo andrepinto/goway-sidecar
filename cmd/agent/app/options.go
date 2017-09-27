@@ -9,9 +9,11 @@ const(
 	Version = "VERSION"
 	ServiceId = "SERVICE_ID"
 	Env 	  = "ENV"
+	ElasticIndex = "ELASTIC_INDEX"
+	ElasticEndpoint = "ELASTIC_IP"
 )
 
-type NavyhookClientCmdOptions struct {
+type SideCarClientCmdOptions struct {
 	Service string
 	Version string
 	ServiceId string
@@ -24,13 +26,13 @@ type NavyhookClientCmdOptions struct {
 
 }
 
-func NewNavyhookClientCmdOptions() *NavyhookClientCmdOptions{
-	return &NavyhookClientCmdOptions{
+func NewSIdeCarrClientCmdOptions() *SideCarClientCmdOptions{
+	return &SideCarClientCmdOptions{
 
 	}
 }
 
-func (opts *NavyhookClientCmdOptions) AddFlags(app *cli.App){
+func (opts *SideCarClientCmdOptions) AddFlags(app *cli.App){
 
 	flags := []cli.Flag{
 		cli.StringFlag{
@@ -83,12 +85,14 @@ func (opts *NavyhookClientCmdOptions) AddFlags(app *cli.App){
 			Name:        "elastic.endpoint",
 			Value:       "http://localhost:9200",
 			Usage:       "elastic.endpoint",
+			EnvVar:      ElasticEndpoint,
 			Destination: &opts.ElasticIp,
 		},
 		cli.StringFlag{
 			Name:        "elastic.index",
 			Value:       "analytics",
 			Usage:       "elastic.index",
+			EnvVar:      ElasticIndex,
 			Destination: &opts.ElasticIndex,
 		},
 

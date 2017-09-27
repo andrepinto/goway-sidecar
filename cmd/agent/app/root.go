@@ -9,14 +9,14 @@ func NewCliApp() *cli.App {
 
 	app := cli.NewApp()
 
-	app.Name = "navyhook-client"
+	app.Name = "goway-sidecar"
 
-	opts := NewNavyhookClientCmdOptions()
+	opts := NewSIdeCarrClientCmdOptions()
 	opts.AddFlags(app)
 
 	app.Action = func(c *cli.Context) error {
 		//worker := opts.NewWorker()
-		proc := NewNavyhookClientApp()
+		proc := NewSideCarApp()
 		return proc.Run(opts)
 	}
 
