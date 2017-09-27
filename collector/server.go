@@ -59,7 +59,6 @@ func (sv *CollectorRpcServer) Start() error {
 
 
 func (sv *CollectorRpcServer) HttpLogger(context context.Context, in *proto.HttpLoggerRequest) (*proto.HttpLoggerResponse, error) {
-	log.Info(in)
 
 	item := &HttpLogger{
 		Context: sv.Context,

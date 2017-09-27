@@ -1,0 +1,17 @@
+FROM golang:1.9
+
+RUN apt-get update
+RUN apt-get install curl --yes
+
+
+RUN curl https://glide.sh/get | sh
+
+RUN mkdir -p $GOPATH/src/github.com/andrepinto/goway-sidecar
+
+VOLUME  /go/src/github.com/andrepinto/goway-sidecar/bin
+
+COPY . $GOPATH/src/github.com/andrepinto/goway-sidecar
+
+WORKDIR $GOPATH/src/github.com/andrepinto/goway-sidecar
+
+RUN glide install

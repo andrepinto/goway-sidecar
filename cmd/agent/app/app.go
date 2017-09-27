@@ -4,6 +4,7 @@ import (
 	"github.com/andrepinto/goway-sidecar/collector"
 	"github.com/andrepinto/goway-sidecar/helpers"
 	"github.com/andrepinto/goway-sidecar/outputs/elasticsearch"
+	log "github.com/sirupsen/logrus"
 )
 
 type NavyhookClientApp struct {
@@ -15,15 +16,21 @@ func NewNavyhookClientApp() *NavyhookClientApp {
 
 func (cli *NavyhookClientApp) Run(options *NavyhookClientCmdOptions) error {
 
+	log.SetLevel(log.DebugLevel)
+
 	elasticClient := helpers.CreateElasticSearchConn(options.ElasticIp)
-	elasticClient.Conn()
+	err := elasticClient.Conn()
+
+	log.Debug(err)
 
 	sContext := map[string]string{
-		"service":     options.ServiceId,
+		"service":     options.Service,
 		"version":     options.Version,
 		"service_id":  options.ServiceId,
 		"environment": options.Env,
 	}
+
+	log.Debug(sContext)
 
 	elasticsearchOut := repository.NewElasticsearchOutput(elasticClient, options.ElasticIndex)
 
@@ -35,7 +42,9 @@ func (cli *NavyhookClientApp) Run(options *NavyhookClientCmdOptions) error {
 		Context:              sContext,
 	})
 
-	err := collectorAgent.Start()
+	err = collectorAgent.Start()
+
+	log.Info("Server started")
 
 	select {}
 

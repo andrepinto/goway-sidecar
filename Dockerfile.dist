@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+
+RUN mkdir -p /app/
+
+COPY bin/goway-sidecar /app
+
+EXPOSE 5000
+
+WORKDIR /app
+
+

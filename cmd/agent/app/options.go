@@ -34,21 +34,21 @@ func (opts *NavyhookClientCmdOptions) AddFlags(app *cli.App){
 
 	flags := []cli.Flag{
 		cli.StringFlag{
-			Name:        "service",
+			Name:        "svc",
 			Value:       "",
 			Usage:       "service",
 			EnvVar:      Service,
 			Destination: &opts.Service,
 		},
 		cli.StringFlag{
-			Name:        "service.version",
+			Name:        "svc.version",
 			Value:       "",
 			Usage:       "version",
 			EnvVar:      Version,
-			Destination: &opts.Service,
+			Destination: &opts.Version,
 		},
 		cli.StringFlag{
-			Name:        "service-id",
+			Name:        "svc.id",
 			Value:       "",
 			Usage:       "service-id",
 			EnvVar:      ServiceId,
