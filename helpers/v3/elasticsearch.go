@@ -3,9 +3,11 @@ package v3
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
-	"time"
 	"reflect"
+	"time"
+
 	"gopkg.in/olivere/elastic.v3"
 )
 
@@ -18,11 +20,14 @@ type ElasticSearch struct {
 	client *elastic.Client
 }
 
-func CreateElasticSearchConn(uri string) *ElasticSearch{
+func CreateElasticSearchConn(uri string) *ElasticSearch {
 	return &ElasticSearch{uri, nil}
 }
 
 func (es *ElasticSearch) Conn() error {
+
+	fmt.Println(es.uri, 10*time.Second)
+
 	client, err := elastic.NewClient(
 		elastic.SetURL(es.uri),
 		elastic.SetSniff(false),
@@ -33,7 +38,6 @@ func (es *ElasticSearch) Conn() error {
 		// Handle error
 		return err
 	}
-
 
 	es.client = client
 	return nil
@@ -83,7 +87,6 @@ func (es *ElasticSearch) Find(index string, query elastic.Query, table string, p
 
 func (es *ElasticSearch) FindById(index string, id string, table string, typeOf interface{}) (interface{}, int64, error) {
 
-
 	skipCount := 0
 
 	query := elastic.NewTermQuery("_id", id)
@@ -102,7 +105,6 @@ func (es *ElasticSearch) FindById(index string, id string, table string, typeOf 
 	log.Printf("Query took %d milliseconds\n", searchResult.TookInMillis)
 
 	var model interface{}
-
 
 	for _, item := range searchResult.Each(reflect.TypeOf(typeOf)) {
 		return item, searchResult.Hits.TotalHits, nil
@@ -203,7 +205,6 @@ func (es *ElasticSearch) Update(index string, table string, id string, data map[
 
 	return nil
 }
-
 
 //bulk methods
 

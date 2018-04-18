@@ -1,13 +1,15 @@
 package helpers
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
-	"time"
 	"reflect"
+	"time"
+
 	"gopkg.in/olivere/elastic.v5"
-	"context"
 )
 
 const (
@@ -19,22 +21,25 @@ type ElasticSearch struct {
 	client *elastic.Client
 }
 
-func CreateElasticSearchConn(uri string) *ElasticSearch{
+func CreateElasticSearchConn(uri string) *ElasticSearch {
 	return &ElasticSearch{uri, nil}
 }
 
 func (es *ElasticSearch) Conn() error {
+
+	fmt.Println(es.uri, 20*time.Second)
+
 	client, err := elastic.NewClient(
 		elastic.SetURL(es.uri),
 		elastic.SetSniff(false),
-		elastic.SetHealthcheckInterval(10*time.Second),
-		elastic.SetMaxRetries(5))
+		elastic.SetHealthcheckInterval(20*time.Second),
+		elastic.SetMaxRetries(5),
+		elastic.SetHealthcheckTimeoutStartup(60*time.Second))
 
 	if err != nil {
 		// Handle error
 		return err
 	}
-
 
 	es.client = client
 	return nil
@@ -105,7 +110,6 @@ func (es *ElasticSearch) FindById(index string, id string, table string, typeOf 
 
 	var model interface{}
 
-
 	for _, item := range searchResult.Each(reflect.TypeOf(typeOf)) {
 		return item, searchResult.Hits.TotalHits, nil
 	}
@@ -175,7 +179,6 @@ func (es *ElasticSearch) Delete(index string, table string, query elastic.Query)
 		return errors.New("response is nil")
 	}
 
-
 	_, err = es.client.Flush().Index(index).Do(ctx)
 	if err != nil {
 		return err
@@ -213,7 +216,6 @@ func (es *ElasticSearch) Update(index string, table string, id string, data map[
 	return nil
 }
 
-
 //bulk methods
 
 func (es *ElasticSearch) NewBulk() *elastic.BulkService {
@@ -224,7 +226,7 @@ func (es *ElasticSearch) AddToBulk(index string, bulk *elastic.BulkService, tabl
 	bulk.Add(elastic.NewBulkIndexRequest().Index(index).Type(table).Doc(model).Id(id))
 }
 
-func (es *ElasticSearch) SendBulk(bulk *elastic.BulkService)bool {
+func (es *ElasticSearch) SendBulk(bulk *elastic.BulkService) bool {
 	ctx := context.Background()
 	resp, _ := bulk.Do(ctx)
 	return resp.Errors
